@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthTrack - Your Personal Health Companion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(135deg, #ff6f00, #ffeb3b);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        .banner-elements {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1;
+        }
+        .banner-elements h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .banner-elements p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .banner-elements button {
+            background-color: #fff;
+            color: #ff6f00;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1em;
+        }
+        .banner-elements button:hover {
+            background-color: #f0f0f0;
+        }
+        section {
+            padding: 50px 0;
+            text-align: center;
+        }
+        h1, h2 {
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: #333;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group button {
+            background-color: #ff6f00;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1em;
+        }
+        .form-group button:hover {
+            background-color: #ff8f00;
+        }
+        /* Analysis and Recommendations Styles */
+        .result {
+            margin-bottom: 40px;
+        }
+        .result p {
+            font-size: 1.2em;
+        }
+        /* Progress Bar Styles */
+        .progress-bar {
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .progress {
+            background-color: #ff6f00;
+            height: 20px;
+            width: 0;
+            transition: width 1s ease-in-out;
+        }
+        /* Chart Styles */
+        .chart-container {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 40px;
+        }
+        /* Footer Styles */
+        footer {
+            background: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #ff6f00;
+        }
+        .contact-button {
+            background-color: #ff6f00;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1em;
+        }
+        .contact-button:hover {
+            background-color: #ff8f00;
+        }
+        /* FAQ Styles */
+        .faq {
+            margin-bottom: 40px;
+        }
+        .faq h3 {
+            font-size: 1.5em;
+            color: #333;
+        }
+        .faq p {
+            color: #555;
+        }
+        .faq .question {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .faq .question h4 {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .faq .question p {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="banner-elements">
+                <h1>HealthTrack</h1>
+                <p>Your Personal Health Companion</p>
+                <button class="contact-button" onclick="scrollToContact()">Contact Us</button>
+            </div>
+            <img src="https://via.placeholder.com/150" alt="HealthTrack Logo" style="position: absolute; top: 20px; left: 20px;">
+        </div>
+    </header>
+    <div class="container">
+        <section id="activity">
+            <h2>Track Your Health</h2>
+            <div class="form-group">
+                <label for="steps">Enter Your Daily Steps:</label>
+                <input type="number" id="steps" min="0">
+            </div>
+            <div class="form-group">
+                <label for="height">Enter Your Height (in cm):</label>
+                <input type="number" id="height" min="0">
+            </div>
+            <div class="form-group">
+                <label for="weight">Enter Your Weight (in kg):</label>
+                <input type="number" id="weight" min="0">
+            </div>
+            <div class="form-group">
+                <label for="diet">Enter Your Diet Score (1-10):</label>
+                <input type="number" id="diet" min="1" max="10">
+            </div>
+            <div class="form-group">
+                <button onclick="trackHealth()">Track</button>
+            </div>
+        </section>
+        <section id="analysis">
+            <div class="result" id="health-analysis"></div>
+            <div class="progress-bar">
+                <div class="progress" id="progress-steps"></div>
+            </div>
+            <div class="chart-container">
+                <canvas id="activity-chart"></canvas>
+                <canvas id="bmi-chart"></canvas>
+                <canvas id="diet-chart"></canvas>
+            </div>
+        </section>
+        <section id="recommendations">
+            <div class="result" id="personalized-recommendations"></div>
+        </section>
+        <section id="faq" class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="question">
+                <h3>How often should I track my health?</h3>
+                <p>We recommend tracking your health daily to get accurate insights and make informed decisions.</p>
+            </div>
+            <div class="question">
+                <h3>What is the ideal number of daily steps?</h3>
+                <p>The ideal number of daily steps varies based on individual health goals, but generally, aiming for 8000 to 10000 steps per day is considered beneficial.</p>
+            </div>
+            <div class="question">
+                <h3>How can I improve my diet score?</h3>
+                <p>To improve your diet score, focus on consuming more fruits, vegetables, lean proteins, and whole grains while reducing intake of processed foods, sugary beverages, and unhealthy fats.</p>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#about">About Us</a>
+                <a href="#contact">Contact Us</a>
+            </div>
+            <p>&copy; 2024 HealthTrack. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script>
+        // Function to track health
+        function trackHealth() {
+            // Get the input data
+            var steps = parseInt(document.getElementById('steps').value);
+            var height = parseInt(document.getElementById('height').value);
+            var weight = parseInt(document.getElementById('weight').value);
+            var dietScore = parseInt(document.getElementById('diet').value);
+
+            // Perform health analysis
+            var activityLevel = getActivityLevel(steps);
+            var bmi = calculateBMI(height, weight);
+            var dietQuality = getDietQuality(dietScore);
+
+            // Display health analysis results
+            document.getElementById('health-analysis').innerHTML = '<p>Your activity level is <strong>' + activityLevel + '</strong>.</p>' +
+                '<p>Your BMI is <strong>' + bmi.toFixed(2) + '</strong>.</p>' +
+                '<p>Your diet quality score is <strong>' + dietQuality + '</strong>.</p>';
+
+            // Update progress bar
+            var progressSteps = Math.min((steps / 8000) * 100, 100); // Max steps assumed as 8000
+            document.getElementById('progress-steps').style.width = progressSteps + '%';
+
+            // Generate pie chart for activity level
+            generatePieChart('activity-chart', ['Completed Steps', 'Remaining Steps'], [steps, 8000 - steps], ['#4CAF50', '#FFEB3B']);
+
+            // Generate pie chart for BMI
+            generatePieChart('bmi-chart', ['BMI', ''], [bmi, 25 - bmi], ['#3f51b5', '#2196f3']);
+
+            // Generate pie chart for diet quality
+            generatePieChart('diet-chart', ['Score', ''], [dietScore, 10 - dietScore], ['#FF9800', '#FFC107']);
+
+            // Generate personalized recommendations
+            var recommendations = '';
+            if (activityLevel === 'Excellent' && bmi >= 18.5 && bmi <= 24.9 && dietQuality >= 7) {
+                recommendations = 'Congratulations! You have an excellent health status. Keep up the good work!';
+            } else {
+                recommendations = 'Based on your current health status, we recommend consulting with a healthcare professional for personalized advice.';
+            }
+
+            // Display personalized recommendations
+            document.getElementById('personalized-recommendations').innerHTML = '<p>' + recommendations + '</p>';
+        }
+
+        // Function to determine activity level based on steps
+        function getActivityLevel(steps) {
+            if (steps >= 8000) {
+                return 'Excellent';
+            } else if (steps >= 6000) {
+                return 'Very Good';
+            } else if (steps >= 4000) {
+                return 'Good';
+            } else if (steps >= 2000) {
+                return 'Fair';
+            } else {
+                return 'Poor';
+            }
+        }
+
+        // Function to calculate BMI
+        function calculateBMI(height, weight) {
+            // Convert height from cm to meters
+            var heightInMeters = height / 100;
+            // Calculate BMI
+            var bmi = weight / (heightInMeters * heightInMeters);
+            return bmi;
+        }
+
+        // Function to determine diet quality based on score
+        function getDietQuality(score) {
+            if (score >= 8) {
+                return 'High';
+            } else if (score >= 5) {
+                return 'Moderate';
+            } else {
+                return 'Low';
+            }
+        }
+
+        // Function to generate a pie chart
+        function generatePieChart(chartId, labels, data, backgroundColors) {
+            var ctx = document.getElementById(chartId).getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: backgroundColors,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        // Function to scroll to contact section
+        function scrollToContact() {
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
